@@ -16,6 +16,7 @@ export const RecommendWrapper = styled.div`
             position:relative;
             .img {
                 width:100%;
+                height:100%;
                 border-radius:.3125rem .3125rem 0 0;
             }
             .title{

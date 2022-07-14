@@ -18,6 +18,7 @@ function RecommendList(props) {
           recommend.map((item,index) => 
             <div key={index}>
                <LazyLoad 
+                  height={100}
                   placeholder={<img className='img' src={DefaultImg}/>}>
                   <img className='img'
                     src={item.img} alt="" />
