@@ -1,0 +1,17 @@
+.back-top{
+    width:3.125rem;
+    height:3.125rem;
+    line-height:3.4375rem;
+    text-align:center;
+    position:fixed;
+    bottom:3.125rem ;
+    right:.625rem;
+    background-color:#ffffff;
+    border-radius:50%;
+    opacity:0.8;  
+    font-size:1.5rem;
+}
+i {
+    position: relative;
+    top:-0.125rem;
+}

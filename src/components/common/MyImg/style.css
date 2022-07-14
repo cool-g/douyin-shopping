@@ -1,0 +1,6 @@
+.img {
+    width: 100%;
+    background-image: url('@/assets/images/default.webp');
+    background-size: contain;
+    background-position: center;
+}
