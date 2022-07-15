@@ -98,8 +98,8 @@ export const OrderWrapper = styled.div`
                 }
                 span{
                     display:inline-block;
-                    width:1.125rem;
-                    height:1.125rem;
+                    width:.9375rem;
+                    height:.9375rem;
                     text-align:center;
                     line-height:1.125rem;
                     font-size:.625rem;
@@ -108,7 +108,7 @@ export const OrderWrapper = styled.div`
                     color:white;
                     background-color:${style["primary-colour"]};
                     position:relative;
-                    top:-0.625rem;
+                    top:-0.375rem;
                     right:5%;
                 }
             }

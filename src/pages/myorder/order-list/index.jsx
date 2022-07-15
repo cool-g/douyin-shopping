@@ -17,7 +17,7 @@ function OrderList(props) {
         {
             list.length>0 &&
             list.map(item => (
-                <OrderNote key={item.id} 
+                <OrderNote key={item.id+item.img} 
                     data={item} 
                     deleteOrder={()=>deleteOrder(item.id)}
                     gobuy={gobuy}

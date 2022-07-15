@@ -48,3 +48,9 @@ export const changeEnterLoading = (data) => ({
     type:actionTypes.CHANGE_ENTER_LOADING,
     data
 })
+
+// 增加订单
+export const addOrder = (data) => ({
+    type:actionTypes.ADD_ORDER,
+    data
+})

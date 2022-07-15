@@ -17,7 +17,8 @@ const defaultState = {
         {id:4,name:'待收货/使用',count:0},
         {id:5,name:'评价',count:0},
         {id:6,name:'退款',count:0}
-    ]
+    ],
+    addList:[]
 }
 
 /**
@@ -50,13 +51,21 @@ const showList = (list,tab,query) => {
     return resultList;
 }
 
+const deleteOrder = (list,id) => {
+    return list.filter(item => item.id!==id);
+}
+
 export default (state = defaultState,action) => {
     switch(action.type){
         case actionTypes.CHANGE_ORDER_LIST:
+            let neworderlist = [
+                ...state.addList,
+                ...action.data
+            ];
             return {
                 ...state,
-                orderList:action.data,
-                tabList:getTabCount(action.data,state.tabList)
+                orderList:neworderlist,
+                tabList:getTabCount(neworderlist,state.tabList)
             }
         case actionTypes.UPDATE_ORDER_LIST:
             
@@ -65,9 +74,12 @@ export default (state = defaultState,action) => {
                 showOrderList:showList(state.orderList,action.data.tab,action.data.query)
             }
         case actionTypes.DELETE_ORDER:
+            let newlist = deleteOrder(Object.assign([],state.orderList),action.id);
             return {
                 ...state,
-                orderList:state.orderList.filter(order => order.id!==action.id)
+                orderList:newlist,
+                showOrderList:deleteOrder(Object.assign([],state.showOrderList),action.id),
+                tabList:getTabCount(newlist,state.tabList)
             }
         case actionTypes.CHANGE_RECOMMEND_LIST:
             return {
@@ -78,6 +90,14 @@ export default (state = defaultState,action) => {
             return {
                 ...state,
                 enterloading:action.data
+            }
+        case actionTypes.ADD_ORDER:
+            return {
+                ...state,
+                addList:[ 
+                    ...action.data,
+                    ...state.addList
+                ]
             }
         default:
             return state;

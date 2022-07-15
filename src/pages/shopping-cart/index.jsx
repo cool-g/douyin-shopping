@@ -73,7 +73,8 @@ function ShoppingCart(props) {
   }
   const onSubmit = () => {
     const selectedList=cartList.filter(item => item.checked==true);
-    changeSubmitGoodsDispatch(selectedList)
+    changeSubmitGoodsDispatch(selectedList);
+    deleteGoods();
     navigate('/buy')
   }
   const deleteproduce = () => {
