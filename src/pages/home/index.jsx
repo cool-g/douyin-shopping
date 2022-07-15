@@ -148,9 +148,9 @@ function Home(props) {
         <RecommendStore livelist={livelist} brandlist={brandlist}/>
 
         {/* 推荐列表 应用图片懒加载 */}
-        <Scroll onScroll={forceCheck} >
+        <div onScroll={forceCheck} >
             <RecommendList recommend={goodsList} putinCart={putinCart}/>
-        </Scroll>
+        </div>
         </PullToRefresh>
 
         <BackTop backtop={backtop}/>

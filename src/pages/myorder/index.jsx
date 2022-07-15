@@ -114,7 +114,7 @@ function Myorder(props) {
         </ul> 
       </div>
 
-    <Scroll onScroll={forceCheck}>
+    <div onScroll={forceCheck}>
       {/* 列表 */}
       <PullToRefresh
             onRefresh={doRefresh}
@@ -144,7 +144,7 @@ function Myorder(props) {
               }
          
       </PullToRefresh>
-    </Scroll>
+    </div>
 
       {/* 显示加载中 */}
       {enterloading&&<Loading/>}

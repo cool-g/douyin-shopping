@@ -121,7 +121,7 @@ function ShoppingCart(props) {
         > 购物车
         </NavBar>
 
-        <Scroll onScroll={forceCheck}>
+        <div onScroll={forceCheck}>
           <CartList 
             cartList={cartList} 
             onCheckedChange={onCheckedChange}
@@ -136,7 +136,7 @@ function ShoppingCart(props) {
           }
           <h2 className='like'>你可能还会喜欢</h2>
           <RecommendList recommend={recommendList} />
-        </Scroll>
+        </div>
         {/* 显示加载中 */}
         {enterLoading&&<Loading/>}
         <BackTop backtop={backtop}/>
