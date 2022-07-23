@@ -1,6 +1,7 @@
 import * as actionTypes from './constants'
 
 const defaultState = {
+    // 初始购物车状态
     cartList:[
         {
             "id": 111,
@@ -39,17 +40,18 @@ const defaultState = {
             "checked":false
           }
     ],
-    selectAll:false,
-    totle:0,
+    // 推荐列表
     recommendList:[],
     enterLoading:true
 }
 
+// 选中/取消选中商品
 const changeCart = (list,id) => {
   let idx = list.findIndex(data => id == data.id);
   list[idx].checked=!list[idx].checked;
   return list;
 }
+// 删除某id的商品
 const deletegoods = (list) => {
   let newlist=[];
   for(let item of list) {
@@ -59,11 +61,13 @@ const deletegoods = (list) => {
   }
   return newlist;
 }
+// 改变商品的数量
 const changeacount = (list,data) => {
   let idx = list.findIndex(item => item.id==data.id);
   list[idx].acount = data.value;
   return list;
 }
+// 向购物车内添加商品
 const addGoods = (list,data) => {
   let newList=list;
   newList.push(data);
@@ -86,17 +90,10 @@ export default (state = defaultState,action) => {
         case actionTypes.CHANGE_SELECT_ALL:
           return {
             ...state,
-            selectAll:!state.selectAll,
             cartList:state.cartList.map(item=>{
-              item.checked=!state.selectAll
+              item.checked=!action.data
               return item;
             })
-          }
-        case actionTypes.CHANGE_TOTLE:
-          return {
-            ...state,
-            totle:state.cartList.reduce((pre,item) => 
-              item.checked?pre+item.price*item.acount:pre, 0 )
           }
         case actionTypes.DELETE_GOODS:
           return {

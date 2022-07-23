@@ -10,13 +10,10 @@ export const changeSelectedGoods = (data) => ({
     type:actionTypes.CHANGE_SELECTED_GOODS,
     data
 })
-// 全选
-export const changeSelectAll = () => ({
-    type:actionTypes.CHANGE_SELECT_ALL
-})
-// 更改总价
-export const changeTotle = () => ({
-    type:actionTypes.CHANGE_TOTLE
+// 全选/取消全选
+export const changeSelectAll = (data) => ({
+    type:actionTypes.CHANGE_SELECT_ALL,
+    data
 })
 // 从购物车删除商品
 export const deleteGoods = () => ({

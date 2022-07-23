@@ -32,7 +32,7 @@ function ShoppingCart(props) {
    } = props;
   const { 
     changeSelectAllDispatch,
-    changeTotleDispatch,
+    // changeTotleDispatch,
     deleteGoodsDispatch,
     changeGoodsAcountDispatch,
     getRecommendListDispatch,
@@ -41,6 +41,7 @@ function ShoppingCart(props) {
   } = props;
   const [showDelete,setShowDelete] = useState(false);
 
+  // 菜单栏右侧 动态显示
   const tabRight = (
     <div>
       <button>降价</button>
@@ -55,28 +56,30 @@ function ShoppingCart(props) {
   const backtop =() => {
     window.scrollTo(0,0);
   }
+  // 选中/取消选中商品
   const onCheckedChange = (id) => {
     changeSelectedGoodsDispatch(id);
-    changeTotleDispatch();
   }
+  // 全选
   const doSelectAll = () => {
-    changeSelectAllDispatch();
-    changeTotleDispatch();
+    changeSelectAllDispatch(selectAll);
   }
+  // 删除购物车商品
   const deleteGoods = () => {
     deleteGoodsDispatch();
-    changeTotleDispatch();
   }
+  // 改变商品数量 逻辑部分
   const changeAcount = (id,value) => {
     changeGoodsAcountDispatch({id,value});
-    changeTotleDispatch();
   }
+  // 结算 /页面跳转
   const onSubmit = () => {
     const selectedList=cartList.filter(item => item.checked==true);
-    changeSubmitGoodsDispatch(selectedList);
+    changeSubmitGoodsDispatch(selectedList)
     deleteGoods();
     navigate('/buy')
   }
+  // 删除商品 UI 显示部分
   const deleteproduce = () => {
     if(cartList.every(item => item.checked==false)) return ;
     Modal.confirm({
@@ -97,11 +100,14 @@ function ShoppingCart(props) {
         onConfirm:() => {deleteGoods()},
     })
   }
+
   useEffect(()=>{
     setShow(true);
     getRecommendListDispatch();
   },[])
+
   return (
+    // CSS 进入/退出 动画
     <CSSTransition
     in={show}
     timeout={300}
@@ -111,6 +117,7 @@ function ShoppingCart(props) {
     onExit={() => {navigate(-1)}}
     >
       <Wrapper>
+        {/* 导航栏 */}
         <NavBar 
           onBack={onBack}
           className='navbar'
@@ -122,12 +129,14 @@ function ShoppingCart(props) {
         > 购物车
         </NavBar>
 
-        <div onScroll={forceCheck}>
+        <Scroll onScroll={forceCheck}>
+          {/* 购物车商品列表 */}
           <CartList 
             cartList={cartList} 
             onCheckedChange={onCheckedChange}
             changeAcount={changeAcount}
           />
+          {/* 空状态 */}
           {
             cartList.length==0 && 
             <EmptyItem>
@@ -135,13 +144,15 @@ function ShoppingCart(props) {
               <p>购物车是空的，快去挑选好货</p>
             </EmptyItem>
           }
+          {/* 推荐列表 */}
           <h2 className='like'>你可能还会喜欢</h2>
           <RecommendList recommend={recommendList} />
-        </div>
+        </Scroll>
         {/* 显示加载中 */}
         {enterLoading&&<Loading/>}
+        {/* 回顶 */}
         <BackTop backtop={backtop}/>
-
+      
       <Footer>
           <div>
             <input checked={selectAll} type="checkbox" onChange={()=>doSelectAll()}/>全选
@@ -172,8 +183,14 @@ function ShoppingCart(props) {
 const mapStateToProps = (state) => {
   return {
     cartList:state.shoppingcart.cartList,
-    selectAll:state.shoppingcart.selectAll,
-    totle:state.shoppingcart.totle,
+    // selectAll:state.shoppingcart.selectAll,
+    selectAll:state.shoppingcart.cartList.length &&
+      state.shoppingcart.cartList.every(item => 
+      item.checked==true ),
+    // totle:state.shoppingcart.totle,
+    // 总价
+    totle:state.shoppingcart.cartList.reduce((pre,item) => 
+    item.checked?pre+item.price*item.acount:pre, 0),
     recommendList:state.shoppingcart.recommendList,
     enterLoading:state.shoppingcart.enterLoading
   }
@@ -183,11 +200,8 @@ const mapDispatchToProps = (dispatch) => {
     changeSelectedGoodsDispatch(data) {
       dispatch(actionCreators.changeSelectedGoods(data));
     },
-    changeSelectAllDispatch(){
-      dispatch(actionCreators.changeSelectAll());
-    },
-    changeTotleDispatch() {
-      dispatch(actionCreators.changeTotle());
+    changeSelectAllDispatch(data){
+      dispatch(actionCreators.changeSelectAll(data));
     },
     deleteGoodsDispatch() {
       dispatch(actionCreators.deleteGoods());
